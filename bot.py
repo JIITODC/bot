@@ -1,17 +1,15 @@
 import logging
 from time import sleep
-import traceback
-import sys
 from html import escape
 import json
 
 
-from telegram import ParseMode, TelegramError, Update
+from telegram import ParseMode
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
-from config import bot_name, token, PORT
+from config import bot_name, token
 
-with open("data_file.json", "r") as read_file:
+with open("data_file.json", "r+") as read_file:
     data = json.load(read_file)
 
 root = logging.getLogger()
@@ -174,26 +172,16 @@ def lock(update, context):
 def things_to_do(update,context):
     chat_id = update.message.chat.id
     text=data["to_do"]
-    
-    if List is None:
-        List = "Add things"
-    context.bot.send_message(chat_id=chat_id,text=List, parse_mode=ParseMode.HTML)
+    context.bot.send_message(chat_id=chat_id,text=text, parse_mode=ParseMode.HTML)
 
 
 
 
 def check(update, context):
-    chats = db.get("chats")
-
-    if update.message.chat.id not in chats:
-        chats.append(update.message.chat.id)
-        db.set("chats", chats)
-        logger.info("I have been added to %d chats" % len(chats))
-
     if update.message.new_chat_members:
         for new_member in update.message.new_chat_members:
             if new_member.username == bot_name:
-                return introduce(update, context)
+                return start(update, context)
             else:
                 return welcome(update, context, new_member)
 
@@ -201,30 +189,10 @@ def check(update, context):
         if update.message.left_chat_member.username != bot_name:
             return goodbye(update, context)
 
-
-def error(update, context, **kwargs):
-    error = context.error
-
-    try:
-        if isinstance(error, TelegramError) and (
-            error.message == "Unauthorized"
-            or error.message == "Have no rights to send a message"
-            or "PEER_ID_INVALID" in error.message
-        ):
-            chats = db.get("chats")
-            chats.remove(update.message.chat_id)
-            db.set("chats", chats)
-            logger.info("Removed chat_id %s from chat list" % update.message.chat_id)
-        else:
-            logger.error("An error (%s) occurred: %s" % (type(error), error.message))
-    except:
-        pass
-
-
-
 def main():
     updater = Updater(token, workers=10, use_context=True)
     dp = updater.dispatcher
+    
 
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
@@ -233,7 +201,6 @@ def main():
     dp.add_handler(CommandHandler("setlist", set_things_to_do))
     dp.add_handler(CommandHandler("todo", things_to_do))
     dp.add_handler(MessageHandler(Filters.status_update, check))
-    dp.add_error_handler(error)
 
     '''updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
