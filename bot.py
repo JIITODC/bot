@@ -43,23 +43,6 @@ def welcome(update, context, new_member):
     context.bot.send_message(chat_id=chat_id, text=text, parse_mode=ParseMode.HTML)
 
 
-def goodbye(update, context):
-
-    message = update.message
-    chat_id = message.chat.id
-    logger.info(
-        "%s left chat %d (%s)",
-        escape(message.left_chat_member.first_name),
-        chat_id,
-        escape(message.chat.title),
-    )
-    text = data[str(chat_id) + "_bye"]
-    if text is None:
-        text = "Goodbye, $username!"
-    text = text.replace("$username", message.left_chat_member.first_name)
-    context.bot.send_message(chat_id=chat_id, text=text, parse_mode=ParseMode.HTML)
-
-
 def start(update, context):
 
     chat_id = update.message.chat.id
@@ -78,7 +61,6 @@ def help(update, context):
         "part of. By default, only the person who invited the bot into "
         "the group is able to change settings.\nCommands:\n\n"
         "/welcome - Set welcome message\n"
-        "/goodbye - Set goodbye message\n"
         "/settodolist - Set what your plans for today"
         "/todo - View your today's plans"
         "& help messages\n\n"
@@ -114,26 +96,6 @@ def set_welcome(update, context):
         return
 
     data[str(chat_id)] = message
-
-    with open("data_file.json", "w+") as write_file:
-        json.dump(data, write_file)
-
-    context.bot.send_message(chat_id=chat_id, text="Got it!")
-
-
-def set_goodbye(update, context):
-    chat_id = update.message.chat.id
-    message = update.message.text.partition(" ")[2]
-
-    if not message:
-        context.bot.send_message(
-            chat_id=chat_id,
-            text="To set goodbye message you can do like this:\n"
-            "<code>/goodbye Goodbye, $username!</code>",
-            parse_mode=ParseMode.HTML,
-        )
-        return
-    data[str(chat_id) + "_bye"] = message
 
     with open("data_file.json", "w+") as write_file:
         json.dump(data, write_file)
@@ -184,10 +146,6 @@ def check(update, context):
             else:
                 return welcome(update, context, new_member)
 
-    elif update.message.left_chat_member is not None:
-        if update.message.left_chat_member.username != bot_name:
-            return goodbye(update, context)
-
 
 def main():
     updater = Updater(token, workers=10, use_context=True)
@@ -196,7 +154,6 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("welcome", set_welcome))
-    dp.add_handler(CommandHandler("goodbye", set_goodbye))
     dp.add_handler(CommandHandler("setlist", set_things_to_do))
     dp.add_handler(CommandHandler("todo", things_to_do))
     dp.add_handler(MessageHandler(Filters.status_update, check))
