@@ -1,15 +1,10 @@
 import logging
 from html import escape
-import json
-
 
 from telegram import ParseMode
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
 from config import bot_name, token
-
-with open("data_file.json", "r+") as read_file:
-    data = json.load(read_file)
 
 root = logging.getLogger()
 root.setLevel(logging.INFO)
@@ -47,26 +42,20 @@ def start(update, context):
     chat_id = update.message.chat.id
 
     text = (
-        f"Hello {update.message.chat.title}! "
-        "I am the official bot of JODC. I will now greet anyone who joins this chat with a "
-        "nice message 😊 \nCheck the /help command for more info!"
+        "Hello everyone!\n\n"
+        "I am the JODC-bot.\n"
+        "If you want to know about what I can do, use the /help command\n"
     )
     context.bot.send_message(chat_id=chat_id, text=text)
 
 
 def help(update, context):
     help_text = (
-        "Welcomes everyone that enters a group chat that this bot is a "
-        "part of. By default, only the person who invited the bot into "
-        "the group is able to change settings.\nCommands:\n\n"
-        "/welcome - Set welcome message\n"
-        "& help messages\n\n"
-        "You can use _$username_ and _$title_ as placeholders when setting"
-        " messages. [HTML formatting]"
-        "(https://core.telegram.org/bots/api#formatting-options) "
-        "is also supported.\n"
+        "I understand these commands: \n"
+        "/help - List the commands that I understand \n\n"
+        "Contributions from the JODC community helps me in learning more.\n"
+        "https://github.com/JIITODC/bot"
     )
-
     chat_id = update.message.chat.id
     context.bot.send_message(
         chat_id=chat_id,
