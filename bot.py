@@ -61,8 +61,6 @@ def help(update, context):
         "part of. By default, only the person who invited the bot into "
         "the group is able to change settings.\nCommands:\n\n"
         "/welcome - Set welcome message\n"
-        "/settodolist - Set what your plans for today"
-        "/todo - View your today's plans"
         "& help messages\n\n"
         "You can use _$username_ and _$title_ as placeholders when setting"
         " messages. [HTML formatting]"
@@ -103,39 +101,12 @@ def set_welcome(update, context):
     context.bot.send_message(chat_id=chat_id, text="Got it!")
 
 
-def set_things_to_do(update, context):
-    """ Sets to do list"""
-    chat_id = update.message.chat.id
-    message = update.message.text.partition(" ")[2]
-
-    if not message:
-        context.bot.send_message(
-            chat_id=chat_id,
-            text="Hey! add what you wanna do in this list",
-            parse_mode=ParseMode.HTML,
-        )
-        return
-
-    data["to_do"] = message
-
-    with open("data_file.json", "w+") as write_file:
-        json.dump(data, write_file, indent=4, sort_keys=True)
-
-    context.bot.send_message(chat_id=chat_id, text="Got it!")
-
-
 def lock(update, context):
     """ Locks the chat, so only the invitee can change settings """
 
     chat_id = update.message.chat.id
 
     context.bot.send_message(chat_id=chat_id, text="Got it!")
-
-
-def things_to_do(update, context):
-    chat_id = update.message.chat.id
-    text = data["to_do"]
-    context.bot.send_message(chat_id=chat_id, text=text, parse_mode=ParseMode.HTML)
 
 
 def check(update, context):
@@ -154,8 +125,6 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("welcome", set_welcome))
-    dp.add_handler(CommandHandler("setlist", set_things_to_do))
-    dp.add_handler(CommandHandler("todo", things_to_do))
     dp.add_handler(MessageHandler(Filters.status_update, check))
 
     """updater.start_webhook(listen="0.0.0.0",
