@@ -30,17 +30,16 @@ def welcome(update, context, new_member):
     chat_id = message.chat.id
     logger.info(
         "%s joined to chat %d (%s)",
-        escape(new_member.first_name),
+        escape(new_member.username),
         chat_id,
         escape(message.chat.title),
     )
-    text = data[str(chat_id)]
-    if text is None:
-        text = "Hello $username! Welcome to $title"
-
-    text = text.replace("$username", new_member.first_name)
-    text = text.replace("$title", message.chat.title)
-    context.bot.send_message(chat_id=chat_id, text=text, parse_mode=ParseMode.HTML)
+    text = (
+        f"Hello @{new_member.username}! Welcome to the {message.chat.title} "
+        "telegram group!\n"
+        "Please introduce yourself."
+    )
+    context.bot.send_message(chat_id=chat_id, text=text)
 
 
 def start(update, context):
@@ -77,30 +76,6 @@ def help(update, context):
     )
 
 
-def set_welcome(update, context):
-
-    chat_id = update.message.chat.id
-
-    message = update.message.text.partition(" ")[2]
-
-    if not message:
-        context.bot.send_message(
-            chat_id=chat_id,
-            text="To set message, you can take following example:\n"
-            "<code>/welcome Hello $username, welcome to "
-            "$title!</code>",
-            parse_mode=ParseMode.HTML,
-        )
-        return
-
-    data[str(chat_id)] = message
-
-    with open("data_file.json", "w+") as write_file:
-        json.dump(data, write_file)
-
-    context.bot.send_message(chat_id=chat_id, text="Got it!")
-
-
 def lock(update, context):
     """ Locks the chat, so only the invitee can change settings """
 
@@ -124,7 +99,6 @@ def main():
 
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("welcome", set_welcome))
     dp.add_handler(MessageHandler(Filters.status_update, check))
 
     """updater.start_webhook(listen="0.0.0.0",
