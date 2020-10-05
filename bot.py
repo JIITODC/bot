@@ -1,6 +1,7 @@
 import logging
 import random
 import requests
+import re
 from bs4 import BeautifulSoup
 from html import escape
 
@@ -8,6 +9,9 @@ from telegram import ParseMode
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
 from config import bot_name, token
+
+isSleeping = True
+anyCommand = re.compile(r'\*')
 
 root = logging.getLogger()
 root.setLevel(logging.INFO)
@@ -41,6 +45,8 @@ def welcome(update, context, new_member):
 
 
 def xkcd(update, context):
+    if(isSleeping):
+        return
     message = update.message
     chat_id = message.chat.id
     msg_text = message.text
@@ -82,7 +88,8 @@ def xkcd(update, context):
 
 
 def start(update, context):
-
+    global isSleeping
+    isSleeping = False
     chat_id = update.message.chat.id
 
     text = (
@@ -92,8 +99,21 @@ def start(update, context):
     )
     context.bot.send_message(chat_id=chat_id, text=text)
 
+def stop(update,context):
+    global isSleeping
+    isSleeping = True
+    chat_id = update.message.chat.id
+
+    text = (
+        "Bot went to sleep\n"
+        "To wake the bot, use /start command\n"
+    )
+    context.bot.send_message(chat_id=chat_id, text=text)
+
 
 def help(update, context):
+    if(isSleeping):
+        return
     help_text = (
         "I understand these commands: \n"
         "/help - List the commands that I understand \n"
@@ -108,6 +128,16 @@ def help(update, context):
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
     )
+
+def unknown(update,context):
+    if(isSleeping):
+        return
+    chat_id = update.message.chat.id
+
+    text = (
+        "Sorry I don't know that command\n"
+    )
+    context.bot.send_message(chat_id=chat_id, text=text)
 
 
 def lock(update, context):
@@ -134,6 +164,8 @@ def main():
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("xkcd", xkcd))
+    dp.add_handler(CommandHandler("stop", stop))
+    dp.add_handler(MessageHandler(Filters.regex(r"/*"),unknown))
     dp.add_handler(MessageHandler(Filters.status_update, check))
 
     """updater.start_webhook(listen="0.0.0.0",
