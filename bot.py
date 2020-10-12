@@ -33,7 +33,6 @@ def welcome(update, context, new_member):
         "%s joined to chat %d (%s)",
         escape(username),
         chat_id,
-        escape(username),
         escape(message.chat.title),
     )
     
