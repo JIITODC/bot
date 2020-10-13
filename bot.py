@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from html import escape
 
-from telegram import ParseMode
+from telegram import ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
 from config import bot_name, token
@@ -26,23 +26,22 @@ def welcome(update, context, new_member):
     message = update.message
     chat_id = message.chat.id
     if new_member.username is None:
-        username=new_member.first_name
+        username = new_member.first_name
     else:
-        username=new_member.username
+        username = new_member.username
     logger.info(
         "%s joined to chat %d (%s)",
         escape(username),
         chat_id,
-        escape(username),
         escape(message.chat.title),
     )
-    
+
     text = (
         f"Hello @{username}! Welcome to the {message.chat.title} "
         "telegram group!\n"
         "Please introduce yourself."
-    )    
-    
+    )
+
     context.bot.send_message(chat_id=chat_id, text=text)
 
 
@@ -74,7 +73,7 @@ def xkcd(update, context):
         logger.info("%s requested an XKCD", escape(message.from_user.username))
 
         random.seed()
-        xkcd_num = random.randint(0, 2300)
+        xkcd_num = random.randint(1, 2300)
 
         xkcd_url = "https://xkcd.com/" + str(xkcd_num)
         res = requests.get(xkcd_url)
@@ -85,6 +84,32 @@ def xkcd(update, context):
         comic_url = "https:" + comic_elem[0].get("src")
 
         context.bot.send_photo(chat_id=chat_id, photo=comic_url)
+
+
+def links(update, context):
+    chat_id = update.message.chat_id
+    buttons = [
+        [InlineKeyboardButton(text="Website", url="https://jiitodc.netlify.app")],
+        [InlineKeyboardButton(text="GitHub", url="https://github.com/JIITODC/")],
+        [InlineKeyboardButton(text="Telegram", url="https://t.me/jiitodc")],
+        [
+            InlineKeyboardButton(text="Discord", url="https://discord.gg/eFrP5Z"),
+            InlineKeyboardButton(text="Twitter", url="https://twitter.com/jiitodc"),
+        ],
+        [
+            InlineKeyboardButton(
+                text="LinkedIn", url="https://www.linkedin.com/company/jodc/"
+            ),
+            InlineKeyboardButton(
+                text="Facebook", url="https://www.facebook.com/jiitodc/"
+            ),
+        ],
+    ]
+    reply_markup = InlineKeyboardMarkup(buttons)
+    # update.message.reply_text(reply_markup=reply_markup)
+    context.bot.send_message(
+        chat_id=chat_id, text="Find JODC on:", reply_markup=reply_markup
+    )
 
 
 def start(update, context):
@@ -102,24 +127,29 @@ def help(update, context):
     help_text = (
         "I understand these commands: \n"
         "/help - List the commands that I understand \n"
-        "/xkcd - Get an xkcd comic. Random if no argument given.\n\n"
-        "Contributions from the JODC community helps me in learning more.\n"
-        "https://github.com/JIITODC/bot"
+        "/xkcd - Get an xkcd comic. Random if no argument given.\n"
+        "/links - Get links to reach JODC.\n\n"
+        "Contributions from the community help me in learning more.\n"
+        "Do checkout my repo once."
     )
     chat_id = update.message.chat.id
+    bot_repo_button = [
+        {InlineKeyboardButton("Visit JODC-bot repo", "https://github.com/JIITODC/bot")}
+    ]
+    url_reply_markup = InlineKeyboardMarkup(bot_repo_button)
     context.bot.send_message(
         chat_id=chat_id,
         text=help_text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
+        reply_markup=url_reply_markup
     )
+
 
 def unknown(update, context):
     chat_id = update.message.chat.id
 
-    text = (
-        "Sorry I don't know that command\n"
-    )
+    text = "Sorry, I don't know that command"
     context.bot.send_message(chat_id=chat_id, text=text)
 
 
@@ -146,6 +176,7 @@ def main():
 
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("xkcd", xkcd))
+    dp.add_handler(CommandHandler("links", links))
     dp.add_handler(MessageHandler(Filters.status_update, check))
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
