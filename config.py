@@ -1,0 +1,2 @@
+bot_name = ""
+token = ""
