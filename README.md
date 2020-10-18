@@ -16,11 +16,13 @@ Example for ubuntu
 `sudo apt install python3-pip`
 verify the installation by:
 `pip3 --version`
-2. Navigate to the project directory and install python dependencies using: 
+2. Clone this repository and install python dependencies using: 
 `pip3 install -r requirements.txt`
-3. In config.py set:
-`bot_name` to your bot's name (the one you set with **BotFather**),
-`token` to the token provided by **BotFather**,
+3. Set two environment variables from your terminal namely, 
+   ```bash
+   export bot_name="<your bot's name that you presented to botfather>"
+   export token="<token presented by botfather>"
+   ```
 4. Make a file `data_file.json` and write `{}` in it
 5. Make the changes you want to
 6. Run the bot with:
