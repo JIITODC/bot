@@ -1,2 +1,0 @@
-bot_name = ""
-token = ""

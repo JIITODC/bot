@@ -1,13 +1,15 @@
 import logging
 import random
 import requests
+import os
 from bs4 import BeautifulSoup
 from html import escape
 
 from telegram import ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
-from config import bot_name, token
+bot_name = os.getenv("bot_name")
+token = os.getenv("token")
 
 root = logging.getLogger()
 root.setLevel(logging.INFO)
