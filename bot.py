@@ -40,14 +40,6 @@ def unknown(update, context):
     context.bot.send_message(chat_id=chat_id, text=text)
 
 
-def lock(update, context):
-    """ Locks the chat, so only the invitee can change settings """
-
-    chat_id = update.message.chat.id
-
-    context.bot.send_message(chat_id=chat_id, text="Got it!")
-
-
 def check(update, context):
     if update.message.new_chat_members:
         for new_member in update.message.new_chat_members:
