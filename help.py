@@ -7,7 +7,7 @@ def help(update, context):
         "/help - List the commands that I understand \n"
         "/xkcd - Get an xkcd comic. Random if no argument given.\n"
         "/links - Get links to reach JODC.\n\n"
-        "Contributions from the community help me in learning more.\n"
+        "Contributions from the community helps me in learning more.\n"
         "Do checkout my repo once."
     )
     chat_id = update.message.chat.id

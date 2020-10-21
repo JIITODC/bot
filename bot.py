@@ -50,7 +50,7 @@ def check(update, context):
 
 
 def main():
-    updater = Updater(token, workers=10, use_context=True)
+    updater = Updater(token, use_context=True)
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("help", help))
@@ -59,10 +59,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.status_update, check))
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
-    """updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook('https://yourherokuappname.herokuapp.com/' + TOKEN)"""
+
     updater.start_polling(timeout=30, clean=True)
 
     updater.idle()
