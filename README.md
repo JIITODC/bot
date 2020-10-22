@@ -1,6 +1,8 @@
 # bot
 JIITODC's very own telegram bot!
 
+Take a look at the [contributing guide](CONTRIBUTING.md) to get started!
+
 ### Setup Instructions:
 
 ###### Get a bot from BotFather to test your changes locally:
