@@ -1,7 +1,7 @@
 ## Contributing to the bot :rocket:
 All contributions are welcome! :hugs:
 
-**NOTE:** This document is made while keeping all types of contributors in mind. You may skip to [Setup instructions](#Setup-instructions)
+**NOTE:** This document is made while keeping all types of contributors in mind. You may skip to [Setup instructions](#setup-instructions)
 if you're familiar with Git and GitHub.
 
 ### Installing and setting up git :nerd_face:
@@ -23,7 +23,7 @@ if you're familiar with Git and GitHub.
 
 Well done! Now you have the code on your local system! :v:
 
-### Setup Instructions :computer:
+### Setup Instructions
 
 ###### Get a bot from BotFather to test your changes locally  :robot:
 1. Ping [BotFather](https://t.me/botfather) on Telegram
@@ -56,7 +56,7 @@ Well done! Now you have the code on your local system! :v:
 6. Add the bot to a group and test if its working. If it works, then you're good to go. If it does not then try repeating the steps or googling your problem.
 7. If you're still unable to get it working after step 6, ask for help on JODC's telegram channel.
 
-### Making pull requests (contributions) :cake:
+### Making pull requests :cake:
 1. `cd` into the cloned project directory on your local machine and create a new branch by
     ```bash
     git checkout -b "Branch-Name"
@@ -79,10 +79,12 @@ Well done! Now you have the code on your local system! :v:
   git push -u origin "Branch-Name from step 1"
   ```
   
-7. Open your forked repo on GitHub and click the `Pull request` button to create a pull request. Describe a little about your changes and attach the 
+7. Open your forked repo on GitHub and click the **Pull request** button to create a pull request. Describe a little about your changes and attach the 
 screenshot you took here :sparkles:
 
 See [this](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request) for help with pull requests.
+
+TODO: Add PR templates 
 
 ### Making Issues :hand:
 Feel free to open an issue for
@@ -95,5 +97,8 @@ Feel free to open an issue for
 How to open an issue
 1. Open the bot repo on github: https://github.com/JIITODC/bot
 2. Click on the issues tab 
-3. Click on the green colored `New Issue` button and follow one of the proposed issue templates. If none of them fits for your issue, create a custom issue.
+3. Click on the green colored **New Issue** button.
+4. Describe the issue so that it is easy for someone to understand it.
 See [this](https://docs.github.com/en/free-pro-team@latest/github/managing-your-work-on-github/creating-an-issue) for help with creating issues.
+
+TODO: Add Issue templates
