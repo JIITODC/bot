@@ -6,6 +6,7 @@ from links import links
 from help import help
 from xkcd import xkcd
 from welcome import welcome
+from meetup import set_meetup, meetup
 
 bot_name = os.getenv("bot_name")
 token = os.getenv("token")
@@ -20,8 +21,6 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-
-
 def start(update, context):
     chat_id = update.message.chat.id
 
@@ -52,10 +51,11 @@ def check(update, context):
 def main():
     updater = Updater(token, use_context=True)
     dp = updater.dispatcher
-
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("xkcd", xkcd))
     dp.add_handler(CommandHandler("links", links))
+    dp.add_handler(CommandHandler("set_meetup", set_meetup))
+    dp.add_handler(CommandHandler("meetup", meetup))
     dp.add_handler(MessageHandler(Filters.status_update, check))
     dp.add_handler(MessageHandler(Filters.command, unknown))
 
