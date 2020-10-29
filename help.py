@@ -6,7 +6,8 @@ def help(update, context):
         "I understand these commands: \n"
         "/help - List the commands that I understand \n"
         "/xkcd - Get an xkcd comic. Random if no argument given.\n"
-        "/links - Get links to reach JODC.\n\n"
+        "/links - Get links to reach JODC.\n"
+        "/meetup - Get next info about next meetup.\n\n"
         "Contributions from the community helps me in learning more.\n"
         "Do checkout my repo once."
     )
