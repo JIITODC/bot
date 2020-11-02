@@ -10,6 +10,7 @@ from commands.meetup import set_meetup, meetup
 
 bot_name = os.getenv("bot_name")
 token = os.getenv("token")
+# token = BOT_TOKEN
 
 root = logging.getLogger()
 root.setLevel(logging.INFO)
@@ -21,6 +22,8 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+
 def start(update, context):
     chat_id = update.message.chat.id
 
@@ -56,9 +59,9 @@ def main():
     dp.add_handler(CommandHandler("links", links))
     dp.add_handler(CommandHandler("set_meetup", set_meetup))
     dp.add_handler(CommandHandler("meetup", meetup))
+    dp.add_handler(CommandHandler("run", tweets))
     dp.add_handler(MessageHandler(Filters.status_update, check))
     dp.add_handler(MessageHandler(Filters.command, unknown))
-
 
     updater.start_polling(timeout=30, clean=True)
 
