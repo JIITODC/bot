@@ -29,4 +29,6 @@ def tweets(update, context):
 
     stream = tweepy.Stream(auth=api.auth, listener=listener)
 
-    stream.filter(follow=['1306472885624635394', '1025405816839405569'])
+    stream.filter(follow=['1025405816839405569'], is_async=True)
+
+# JODC twitter ID => '1025405816839405569'
