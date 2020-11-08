@@ -2,11 +2,11 @@ import logging
 import os
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
-from links import links
-from help import help
-from xkcd import xkcd
-from welcome import welcome
-from meetup import set_meetup, meetup
+from commands.links import links
+from commands.help import help
+from commands.xkcd import xkcd
+from commands.welcome import welcome
+from commands.meetup import set_meetup, meetup
 
 bot_name = os.getenv("bot_name")
 token = os.getenv("token")
