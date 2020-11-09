@@ -8,7 +8,7 @@ def links(update, context):
         [InlineKeyboardButton(text="GitHub", url="https://github.com/JIITODC/")],
         [InlineKeyboardButton(text="Telegram", url="https://t.me/jiitodc")],
         [
-            InlineKeyboardButton(text="Discord", url="https://discord.gg/eFrP5Z"),
+            InlineKeyboardButton(text="Discord", url="https://discord.gg/TC3DymJ"),
             InlineKeyboardButton(text="Twitter", url="https://twitter.com/jiitodc"),
         ],
         [
