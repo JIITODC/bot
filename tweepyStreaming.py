@@ -30,6 +30,8 @@ def tweets(update, context):
             data = json.loads(data)
             if 'delete' in data:
                 return
+            if data['user']['screen_name'] != 'jiitodc':
+                return
             chat_id = update.message.chat.id
             text = f"https://twitter.com/jiitodc/status/{data['id_str']}"
             context.bot.send_message(chat_id=chat_id, text=text)
