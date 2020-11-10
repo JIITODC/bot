@@ -2,4 +2,4 @@ __pycache__
 .DS_Store
 env/
 .vscode/
-twitter_token.py
+commands/twitter_token.py

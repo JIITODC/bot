@@ -7,6 +7,7 @@ from commands.help import help
 from commands.xkcd import xkcd
 from commands.welcome import welcome
 from commands.meetup import set_meetup, meetup
+from commands.tweepyStreaming import tweets
 
 bot_name = os.getenv("bot_name")
 token = os.getenv("token")
