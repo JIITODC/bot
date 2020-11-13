@@ -1,24 +1,15 @@
 import tweepy
 import json
-import twitter_token
 
 # Using the twitter streaming api to get the latest tweets.
 
-# CONSUMER_KEY = os.getenv("CONSUMER_KEY")
-# CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
-# ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
-# ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
+CONSUMER_KEY = os.getenv("CONSUMER_KEY")
+CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = os.getenv("ACCESS_TOKEN_SECRET")
 
-# auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-# auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
-
-
-# DELETE these both lines below before deployment
-auth = tweepy.OAuthHandler(twitter_token.CONSUMER_KEY,
-                           twitter_token.CONSUMER_SECRET)
-auth.set_access_token(twitter_token.ACCESS_TOKEN,
-                      twitter_token.ACCESS_TOKEN_SECRET)
-
+auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 

@@ -11,7 +11,6 @@ from commands.tweepyStreaming import tweets
 
 bot_name = os.getenv("bot_name")
 token = os.getenv("token")
-# token = BOT_TOKEN
 
 root = logging.getLogger()
 root.setLevel(logging.INFO)
