@@ -1,3 +1,4 @@
 requests==2.24.0
 python_telegram_bot==12.8
 beautifulsoup4==4.9.2
+tweepy
