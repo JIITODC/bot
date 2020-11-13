@@ -1,5 +1,6 @@
 import tweepy
 import json
+import os
 
 # Using the twitter streaming api to get the latest tweets.
 
