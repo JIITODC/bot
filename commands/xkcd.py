@@ -23,7 +23,9 @@ def xkcd(update, context):
 
     split_msg = str.split(msg_text)
     args = split_msg.__len__()
-    if args == 2:
+    if chat_id == -1001147720202:
+        context.bot.send_message(chat_id=chat_id, text="Sorry, this feature is for the offtopic channel only.")
+    elif args == 2:
         logger.info("%s requested an XKCD", escape(message.from_user.username))
         xkcd_num = split_msg[1]
         xkcd_url = "https://xkcd.com/" + str(xkcd_num)
