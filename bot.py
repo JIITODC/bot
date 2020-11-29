@@ -62,7 +62,7 @@ def main():
     dp.add_handler(MessageHandler(Filters.regex(r'^(/meetup@%s)$' % bot_name), meetup))
     dp.add_handler(MessageHandler(Filters.regex(r'^(/run@%s)$' % bot_name), tweets))
     dp.add_handler(MessageHandler(Filters.status_update, check))
-    dp.add_handler(MessageHandler(Filters.command, unknown))
+    dp.add_handler(MessageHandler(Filters.regex(r'^(/(\w+)@%s)$' % bot_name), unknown))
 
     updater.start_polling(timeout=30, clean=True)
 
