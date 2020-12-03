@@ -55,14 +55,14 @@ def main():
     updater = Updater(token, use_context=True)
     dp = updater.dispatcher
 
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/help@%s)$' % bot_name), help))
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/xkcd@%s)$' % bot_name), xkcd))
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/links@%s)$' % bot_name), links))
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/set_meetup@%s)$' % bot_name), set_meetup))
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/meetup@%s)$' % bot_name), meetup))
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/run@%s)$' % bot_name), tweets))
+    dp.add_handler(CommandHandler("help", help, Filters.regex(r'.*@%s' % bot_name)))
+    dp.add_handler(CommandHandler("xkcd", xkcd, Filters.regex(r'.*@%s' % bot_name)))
+    dp.add_handler(CommandHandler("links", links, Filters.regex(r'.*@%s' % bot_name)))
+    dp.add_handler(CommandHandler("set_meetup", set_meetup, Filters.regex(r'.*@%s' % bot_name)))
+    dp.add_handler(CommandHandler("meetup", meetup, Filters.regex(r'.*@%s' % bot_name)))
+    dp.add_handler(CommandHandler("run", tweets, Filters.regex(r'.*@%s' % bot_name)))
     dp.add_handler(MessageHandler(Filters.status_update, check))
-    dp.add_handler(MessageHandler(Filters.regex(r'^(/(\w+)@%s)$' % bot_name), unknown))
+    dp.add_handler(MessageHandler(Filters.command & Filters.regex(r'.*@%s' % bot_name), unknown))
 
     updater.start_polling(timeout=30, clean=True)
 
