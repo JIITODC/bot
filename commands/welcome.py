@@ -36,5 +36,5 @@ def welcome(update, context, new_member):
     context.bot.send_message(
         chat_id=chat_id,
         text=text,
-        parse_mode=telegram.ParseMode.MARKDOWN,
+       parse_mode='markdown'
     )
