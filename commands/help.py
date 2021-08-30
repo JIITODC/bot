@@ -2,7 +2,6 @@ from telegram import ParseMode, InlineKeyboardButton, InlineKeyboardMarkup
 import os
 
 bot_name = os.getenv("bot_name")
-bot_name.replace("_","\\_")
 
 def help(update, context):
     help_text = (
