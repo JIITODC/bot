@@ -17,7 +17,7 @@ def welcome(update, context, new_member):
     message = update.message
     chat_id = message.chat.id
     if new_member.username is None:
-        username = new_member.first_name
+        username = "["+new_member.first_name+"](tg://user?id="+str(new_member.id)+")"
     else:
         username = new_member.username
     logger.info(
@@ -33,4 +33,8 @@ def welcome(update, context, new_member):
         "Please introduce yourself."
     )
 
-    context.bot.send_message(chat_id=chat_id, text=text)
+    context.bot.send_message(
+        chat_id=chat_id,
+        text=text,
+        parse_mode=telegram.ParseMode.MARKDOWN,
+    )
