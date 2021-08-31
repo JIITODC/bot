@@ -3,6 +3,7 @@ import os
 from telegram.ext import Updater, MessageHandler, CommandHandler, Filters
 
 from commands.links import links
+from commands.issues import issues
 from commands.help import help
 from commands.xkcd import xkcd
 from commands.welcome import welcome
@@ -58,6 +59,7 @@ def main():
     dp.add_handler(CommandHandler("help", help, Filters.regex(r'.*@%s' % bot_name)))
     dp.add_handler(CommandHandler("xkcd", xkcd, Filters.regex(r'.*@%s' % bot_name)))
     dp.add_handler(CommandHandler("links", links, Filters.regex(r'.*@%s' % bot_name)))
+    dp.add_handler(CommandHandler("issues", issues, Filters.regex(r'.*@%s' % bot_name)))
     dp.add_handler(CommandHandler("set_meetup", set_meetup, Filters.regex(r'.*@%s' % bot_name)))
     dp.add_handler(CommandHandler("meetup", meetup, Filters.regex(r'.*@%s' % bot_name)))
     dp.add_handler(CommandHandler("run", tweets, Filters.regex(r'.*@%s' % bot_name)))
