@@ -22,7 +22,7 @@ def help(update, context):
     context.bot.send_message(
         chat_id=chat_id,
         text=help_text,
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.HTML,
         disable_web_page_preview=True,
         reply_markup=url_reply_markup
     )
