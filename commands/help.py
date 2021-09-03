@@ -10,7 +10,7 @@ def help(update, context):
         "/xkcd@"+bot_name+" - Get an xkcd comic. Random if no argument given.\n" 
         "/links@"+bot_name+" - Get links to reach JODC.\n"
         "/meetup@"+bot_name+" - Get next info about next meetup.\n\n"
-        "/issues@"+bot_name+" - Find all the open issues here and contribute yourself!.\n"
+        "/issues@"+bot_name+" - Find all our open issues here.\n"
         "Contributions from the community helps me in learning more.\n"
         "Do checkout my repo once."
     )
