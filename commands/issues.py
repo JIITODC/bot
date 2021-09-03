@@ -13,7 +13,7 @@ def issues(update, context):
     reply_markup = InlineKeyboardMarkup(buttons)
     # update.message.reply_text(reply_markup=reply_markup)
     context.bot.send_message(
-        chat_id=chat_id, text="Find all the issues here:", reply_markup=reply_markup
+        chat_id=chat_id, text="Find all the open issues here:", reply_markup=reply_markup
     )
 
 
